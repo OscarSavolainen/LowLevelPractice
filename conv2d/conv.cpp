@@ -23,7 +23,8 @@ std::vector<std::vector<std::vector<int>>> Conv2D(std::vector<std::vector<std::v
                     for (int koc = 0; koc < kernelOutChannels; ++koc) {
                         for (int kh = 0; kh < kernelHeight; ++kh) {
                             for (int kw = 0; kw < kernelWidth; ++kw) {
-                                // Coordinate input image
+                                // Calculate the coordinates of the input image. We use the kernel, relative to the output pixel,
+                                // to get the input image coords.
                                 // NOTE: padding is "same" mode, as we don't have it and ignore values outside
                                 // the kernel range
                                 int py = ih - kernelHeight/2 + kh; 
@@ -41,6 +42,8 @@ std::vector<std::vector<std::vector<int>>> Conv2D(std::vector<std::vector<std::v
     }
     return result;
 }
+
+
 
 int main() {
 
