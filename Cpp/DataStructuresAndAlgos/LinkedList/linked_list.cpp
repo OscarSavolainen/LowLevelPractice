@@ -115,6 +115,10 @@ class LinkedList {
             Node<T>* current = head;
             // Navigate to the desired node
             for (int i = 0; i < index; ++i) {
+                if (current->next == nullptr) {
+                    std::cout << "Index is outside linked list length" << std::endl;
+                    return;
+                }
                 current = current->next;
             }
 
@@ -129,6 +133,10 @@ class LinkedList {
             Node<T>* current = head;
             // Navigate to the desired node
             for (int i = 0; i < index; ++i) {
+                if (current->next == nullptr) {
+                    std::cout << "Index is outside linked list length" << std::endl;
+                    return;
+                }
                 current = current->next;
             }
 
@@ -178,5 +186,6 @@ int main() {
     myList.removeAt(1);
     myList.display();
 
+    myList.removeAt(100);
     return 0;
 }
