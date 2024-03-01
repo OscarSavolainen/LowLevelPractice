@@ -64,6 +64,7 @@ class LinkedList {
         }
 
         T popFront() {
+            // NOTE: not memory safe, may delete tail and head at the same time, should set them to nullptr
             T value = head->value;
             Node<T>* temp = head;
             head = head->next;
@@ -73,6 +74,7 @@ class LinkedList {
         }
 
         T popBack() {
+            // NOTE: not memory safe, may delete tail and head at the same time, should set them to nullptr
             T value = tail->value;
             Node<T>* temp = tail;
             tail = tail->prev;
