@@ -9,3 +9,6 @@ Search algos: linear, binary, and a crystall ball example.
 
 ### Sorting:
 Exercises for sorting algorithms, that work on a static array.
+
+## LinkedList:
+Linked List implementation, including a double linked list.
