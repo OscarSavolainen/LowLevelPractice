@@ -92,10 +92,7 @@ class LinkedList {
                 node = node->next;
                 index +=1;
             }
-            
 
-            // The value is not in the list.
-            std::cout << "The value " << value << " is not in the list" << std::endl;
             return -1;
         } 
 
@@ -112,6 +109,39 @@ class LinkedList {
                 //std::cout << current->value << std::endl;
             //}
         }
+
+        // Insertion/removal at arbitrary point
+        void removeAt(int index) {
+            Node<T>* current = head;
+            // Navigate to the desired node
+            for (int i = 0; i < index; ++i) {
+                current = current->next;
+            }
+
+            Node<T>* next = current->next;
+            Node<T>* prev = current->prev;
+            prev->next = next;
+            next->prev = prev;
+            delete current;
+        }
+
+        void insertAt(int index, T value) {
+            Node<T>* current = head;
+            // Navigate to the desired node
+            for (int i = 0; i < index; ++i) {
+                current = current->next;
+            }
+
+            Node<T>* new_node = new Node<T>(value); 
+            Node<T>* prev = current->prev;
+
+            new_node->next = current;
+            current->prev = new_node;
+
+            new_node->prev = prev;
+            prev->next = new_node;
+        }
+
 };
 
 int main() {
@@ -140,6 +170,12 @@ int main() {
 
 
     std::cout << "Popped head: " << myList.popFront() << std::endl;
+    myList.display();
+
+    myList.insertAt(1, 30);
+    myList.display();
+
+    myList.removeAt(1);
     myList.display();
 
     return 0;
