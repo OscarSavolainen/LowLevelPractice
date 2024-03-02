@@ -77,6 +77,8 @@ int main() {
         Node<int>* node5 = new Node(5);
         tree.insert(node2, node4);
         tree.insert(node2, node5);
+
+        // Search tree
         bool result = traverse_tree(root, 5);
 
 }
