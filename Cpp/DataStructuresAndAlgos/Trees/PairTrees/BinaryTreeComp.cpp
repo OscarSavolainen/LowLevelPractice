@@ -64,8 +64,13 @@ bool compare_trees(TreeNode<T>* parent1, TreeNode<T>* parent2) {
         return false;
     }
 
-    // If the two trees have the same number of children, we call the function 
-    // recursively on the chldren pairs
+    // Base case 2: the values of the nodes aren't equal.
+    if (parent1->value != parent2->value) {
+        return false;
+    }
+
+    // If the two trees have the same number of children and their values are equal, 
+    // we call the function recursively on the chldren pairs
     for (int i = 0; i< parent1->children.size(); ++i){
         TreeNode<T>* child1 = parent1->children[i];
         TreeNode<T>* child2 = parent2->children[i];
@@ -75,7 +80,7 @@ bool compare_trees(TreeNode<T>* parent1, TreeNode<T>* parent2) {
         }
     }
 
-    // Base case 2: none of the recursive calls have found a mismatch.
+    // Base case 3: none of the recursive calls have found a mismatch.
     return true;
 
 }
