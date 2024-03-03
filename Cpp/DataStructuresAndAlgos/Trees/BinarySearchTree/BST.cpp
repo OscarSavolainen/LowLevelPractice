@@ -103,7 +103,7 @@ class Tree {
         std::cout << std::endl;
     }
 
-    bool search(int value) {
+    bool depth_first_search(int value) {
         bool result = search_function(root, value);
         return result;
     }
@@ -217,7 +217,7 @@ int main() {
     // Binary Search
     std::cout << "\nSearching the tree" << std::endl;
     int value = 11;
-    bool result = tree.search(value);
+    bool result = tree.depth_first_search(value);
     if (result) {
         std::cout << "Found the value " << value << std::endl;
     } else {
@@ -237,7 +237,7 @@ int main() {
     tree.insert(new_node);
     tree.traversal();
     
-    result = tree.search(value);
+    result = tree.depth_first_search(value);
     if (result) {
         std::cout << "Found the value " << value << std::endl;
     } else {
