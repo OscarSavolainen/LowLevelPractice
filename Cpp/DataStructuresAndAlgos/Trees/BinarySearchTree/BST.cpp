@@ -15,6 +15,101 @@ struct Node {
 
 
 template <typename T>
+void delete_node(Node<T>* node) {
+    if (node->parent == nullptr) {
+        std::cout << "You cannot currently delete root" << std::endl;
+        return;
+    }
+
+    Node<T>* parent = node->parent;
+
+    // Check if current node is to left or right of parent
+    bool left = false;
+    // If parent is to right of current
+    if (parent->value > node->value){
+        left = false;
+    } 
+    // Parent is equal or to the left of current
+    else {
+        left = true;
+    }
+
+    // Base case 1: no children
+    // We delete it
+    if (node->left == nullptr && node->right == nullptr) {
+        delete node;
+        // We make the parent point to null.
+        if (left) {
+            parent->left = nullptr;
+        } else {
+            parent->right = nullptr;
+        }
+    }
+
+    // Base case 2: one child
+    // We take the child, and have the parent point to it instead, and delete the current node
+    if (((node->left != nullptr) && (node->right == nullptr)) || ((node->left == nullptr) && (node->right != nullptr))) {
+        Node<T>* child;
+        // Child is left
+        if (node->left != nullptr){
+            child = node->left;
+        }
+        // Child is right
+        else if (node->right != nullptr){
+            child = node->right;
+        }
+
+        // Point parent to child of current
+        if (left) {
+            parent->left = child;
+        } else {
+            parent->right = child;
+        }
+        delete node;
+    }
+
+    // Base case 3: multiple children.
+    // We take the rightmost descendent on the left hand side, and insert it as the current node.
+    // If that node has a left hand child, we call this function recursively when we delete it,
+    // so that should take care of it.
+    if ((node->left != nullptr) && (node->right != nullptr)) {
+        Node<T>* searcher = node->left;
+        while (searcher->right != nullptr) {
+            searcher = searcher->right;
+        }
+        // We make the current node take the value of the rightmost left-hand descendent (next largest value)
+        node->value = searcher->value;
+        // We call the function recursively to delete that node.
+        delete_node(searcher);
+    }
+}
+
+template <typename T>
+bool delete_function(Node<T>* node, T value) {
+
+    bool result = false;
+    // base case 1: we have reached an end of the tree, the node we want to delete it not here.
+    if (node == nullptr){
+        return false;
+    }
+
+    // base case 2: we found the value, we delete the node and return true to signal we are done.
+    if (node->value == value) {
+        delete_node(node);
+        return true;
+    }
+    result = delete_function(node->left, value);
+    if (result) {
+        return true;
+    }
+    result = delete_function(node->right, value);
+    if (result) {
+        return true;
+    }
+    return false;
+}
+
+template <typename T>
 bool search_function(Node<T>* node, T value) {
 
     bool result = false;
@@ -105,6 +200,11 @@ class Tree {
 
     bool depth_first_search(int value) {
         bool result = search_function(root, value);
+        return result;
+    }
+
+    bool delete_val(int value) {
+        bool result = delete_function(root, value);
         return result;
     }
 };
@@ -243,5 +343,18 @@ int main() {
     } else {
         std::cout << "Did not find the value " << value << std::endl;
     }
+
+    // NOTE: need to debug for 11, where two nodes have the same value.
+    value = 3;
+    std::cout << "\nDeleting value " << value << std::endl;
+    result = tree.delete_val(value);
+    if (result) {
+        std::cout << "Deleted the value " << value << std::endl;
+    } else {
+        std::cout << "Did not find the value " << value << std::endl;
+    }    
+
+    tree.traversal();
+
     return 0;
 }
