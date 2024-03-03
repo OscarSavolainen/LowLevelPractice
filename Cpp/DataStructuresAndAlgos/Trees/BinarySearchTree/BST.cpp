@@ -139,15 +139,15 @@ bool search_function(Node<T>* node, T value) {
 
 
 template <typename T>
-void preorder_traversal(Node<T>* node) {
+void inorder_traversal(Node<T>* node) {
     // base case 1: we have reached an end of the tree
     if (node == nullptr){
-        std::cout << "E "; // Represents empty node.
+        //std::cout << "x "; // Represents empty node.
         return;
     }
+    inorder_traversal(node->left);
     std::cout << node->value << " ";
-    preorder_traversal(node->left);
-    preorder_traversal(node->right);
+    inorder_traversal(node->right);
 }
 
 template <typename T>
@@ -199,8 +199,8 @@ class Tree {
     }
 
     void traversal() {
-        std::cout << "\nPre-order traversal of the tree (E == empty node):" << std::endl;
-        preorder_traversal(root); 
+        std::cout << "\nIn-order traversal of the tree :" << std::endl;
+        inorder_traversal(root); 
         std::cout << std::endl;
     }
 
@@ -350,7 +350,7 @@ int main() {
         std::cout << "Did not find the value " << value << std::endl;
     }
 
-    value = 24;
+    value = 9;
     std::cout << "\nDeleting value " << value << std::endl;
     result = tree.delete_val(value);
     if (result) {
