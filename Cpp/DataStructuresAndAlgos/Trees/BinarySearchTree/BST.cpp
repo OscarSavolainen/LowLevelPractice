@@ -25,25 +25,27 @@ void delete_node(Node<T>* node) {
 
     // Check if current node is to left or right of parent
     bool left = false;
-    // If parent is to right of current
-    if (parent->value > node->value){
-        left = false;
-    } 
-    // Parent is equal or to the left of current
-    else {
+    // Current is to the right of parent
+    if (parent->value >= node->value){
         left = true;
+    } 
+    // Current is to left of parent
+    else {
+        left = false;
     }
 
     // Base case 1: no children
     // We delete it
     if (node->left == nullptr && node->right == nullptr) {
-        delete node;
         // We make the parent point to null.
         if (left) {
             parent->left = nullptr;
         } else {
             parent->right = nullptr;
         }
+        // And delete the node
+        delete node;
+        return;
     }
 
     // Base case 2: one child
@@ -66,6 +68,7 @@ void delete_node(Node<T>* node) {
             parent->right = child;
         }
         delete node;
+        return;
     }
 
     // Base case 3: multiple children.
@@ -81,6 +84,7 @@ void delete_node(Node<T>* node) {
         node->value = searcher->value;
         // We call the function recursively to delete that node.
         delete_node(searcher);
+        return;
     }
 }
 
@@ -98,6 +102,8 @@ bool delete_function(Node<T>* node, T value) {
         delete_node(node);
         return true;
     }
+
+    // If we haven't found the value, or the end, we call this function recursively
     result = delete_function(node->left, value);
     if (result) {
         return true;
@@ -344,8 +350,7 @@ int main() {
         std::cout << "Did not find the value " << value << std::endl;
     }
 
-    // NOTE: need to debug for 11, where two nodes have the same value.
-    value = 3;
+    value = 24;
     std::cout << "\nDeleting value " << value << std::endl;
     result = tree.delete_val(value);
     if (result) {
