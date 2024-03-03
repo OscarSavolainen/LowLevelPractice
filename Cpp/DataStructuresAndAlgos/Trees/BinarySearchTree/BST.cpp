@@ -41,10 +41,10 @@ template <typename T>
 void preorder_traversal(Node<T>* node) {
     // base case 1: we have reached an end of the tree
     if (node == nullptr){
-        //std::cout << "empty node reached" << std::endl;
+        std::cout << "E "; // Represents empty node.
         return;
     }
-    std::cout << node->value << std::endl;
+    std::cout << node->value << " ";
     preorder_traversal(node->left);
     preorder_traversal(node->right);
 }
@@ -98,8 +98,9 @@ class Tree {
     }
 
     void traversal() {
-        std::cout << "\nTraversing the tree:" << std::endl;
+        std::cout << "\nPre-order traversal of the tree (E == empty node):" << std::endl;
         preorder_traversal(root); 
+        std::cout << std::endl;
     }
 
     bool search(int value) {
@@ -223,5 +224,24 @@ int main() {
         std::cout << "Did not find the value " << value << std::endl;
     }
 
+
+    // Insertion
+    std::cout << "\nInserting value " << value << std::endl;
+    value = 11;
+    Node<int>* new_node = new Node<int>(value);
+    tree.insert(new_node);
+    tree.traversal();
+
+    std::cout << "\nInserting value " << value << std::endl;
+    new_node = new Node<int>(value);
+    tree.insert(new_node);
+    tree.traversal();
+    
+    result = tree.search(value);
+    if (result) {
+        std::cout << "Found the value " << value << std::endl;
+    } else {
+        std::cout << "Did not find the value " << value << std::endl;
+    }
     return 0;
 }
