@@ -47,3 +47,9 @@ Probably the simplest example possible.
 - Dijkstra (Python)
 - How many subgraphs (e.g. islands) (Python)
 - Largest component (e.g. largest island) (Python)
+
+## Maps:
+- LRU Cache (Python)
+
+## Heap
+- MinHeap
